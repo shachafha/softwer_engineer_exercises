@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner scanner;  // Note: Do not change this line.
-
+    // heloow hello
     public static void theStudentsGame() {
         // TODO: Add your code here.
     }
