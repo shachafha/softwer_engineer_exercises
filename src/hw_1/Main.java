@@ -15,11 +15,11 @@ public class Main {
         getStudentsIndexes(board,board_m,board_n);
         printBoard(board, board_m,board_n,1);
         int i=2;
-        boolean changed = true;
+        boolean changed = updateStatus(board,board_m,board_n);;
         while (i<=1000 && changed){
-            changed = updateStatus(board,board_m,board_n);
             printBoard(board, board_m,board_n,i);
             i++;
+            changed = updateStatus(board,board_m,board_n);
         }
         endGame(board,board_m,board_n,i, changed);
 
