@@ -1,4 +1,4 @@
-package hw_1;
+package hw_0;
 
 import java.io.File;
 import java.io.IOException;
