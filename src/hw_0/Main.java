@@ -98,8 +98,8 @@ public class Main {
 
     public static int numOfValidStudents(int[][] board, int m, int n) {
         int counter = 0;
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (board[i][j] == 1)
                     counter++;
             }
@@ -112,7 +112,7 @@ public class Main {
         String student_index = scanner.nextLine();
         while (!student_index.equals("Yokra")) {
             int index_m = Integer.parseInt(student_index.substring(0, student_index.indexOf((","))));
-            int index_n = Integer.parseInt(student_index.substring(student_index.indexOf((",")) + 2, student_index.length()));
+            int index_n = Integer.parseInt(student_index.substring(student_index.indexOf((",")) + 2));
             if (index_m < m && index_m >= 0 && index_n < n && index_n >= 0) {
                 changeStatus(board, index_m, index_n);
                 System.out.println("Dear president, please enter the cell’s indexes.");
