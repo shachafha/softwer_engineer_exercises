@@ -17,7 +17,7 @@ public class Main {
         printBoard(board, board_m, board_n, 1);
         int i = 2;
         boolean changed = updateStatus(board, board_m, board_n);
-        ;
+
         while (i <= 1000 && changed) {
             printBoard(board, board_m, board_n, i);
             i++;
