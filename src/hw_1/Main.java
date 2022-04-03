@@ -13,12 +13,12 @@ public class Main {
         int board_n = Integer.parseInt(board_sizes.substring(board_sizes.indexOf(("X"))+2,board_sizes.length()));
         int[][] board =new int[board_m][board_n];
         getStudentsIndexes(board,board_m,board_n);
-        printBoard(board, 1);
+        printBoard(board, board_m,board_n,1);
         int i=2;
         boolean changed = true;
         while (i<=1000 && changed){
             changed = updateStatus(board,board_m,board_n);
-            printBoard(board, i);
+            printBoard(board, board_m,board_n,i);
             i++;
         }
         endGame(board,board_m,board_n,i, changed);
@@ -29,20 +29,21 @@ public class Main {
         int[][] aux_board=new int[m][n];
         boolean changed = false;
         int valid_friends;
-        for(int i=0;i< board.length;i++){
-            for(int j=0;j< board[0].length;j++) {
+        for(int i=0;i< m;i++){
+            for(int j=0;j< n;j++) {
                 valid_friends = countValidFriends(board,m,n,i,j);
                 if ((board[i][j] == 1) && (valid_friends <= 1 || valid_friends > 3))
-                    aux_board[i][j] =1;
+                    aux_board[i][j] = 1;
                 if (board[i][j] == 0 && valid_friends == 3)
-                    aux_board[i][j] =1;
+                    aux_board[i][j] = 1;
             }
         }
-        for(int i=0;i< aux_board.length;i++){
-            for(int j=0;j< aux_board[0].length;j++){
+        for(int i=0;i< m;i++){
+            for(int j=0;j< n;j++){
                 if(aux_board[i][j] == 1)
-                {changeStatus(board,i,j);
-                changed=true;
+                {
+                    changeStatus(board,i,j);
+                    changed=true;
                 }
             }
         }
@@ -54,7 +55,7 @@ public class Main {
         for (int i=-1; i<=1;i++){
             for (int j=-1;j<=1;j++){
                 if(isBound(m,n,m_index+i,n_index+j) && !(i==0 && j==0)){
-                    if (board[m_index+i][m_index+i]==1)
+                    if (board[m_index+i][n_index+j]==1)
                         counter++;
                 }
             }
@@ -63,12 +64,12 @@ public class Main {
         return counter;
     }
     public static boolean isBound(int m, int n, int m_index, int n_index) {
-        return m_index >= 0 && n_index >= 0 && m_index != m && n_index != n;
+        return m_index >= 0 && n_index >= 0 && m_index < m && n_index < n;
     }
-    public static void printBoard(int[][] board, int semester_num){
-        System.out.println("Semester Number "+semester_num+":");
-        for(int i=0;i< board.length;i++){
-            for(int j=0;j< board[0].length;j++) {
+    public static void printBoard(int[][] board,int m, int n, int semester_num){
+        System.out.println("Semester number "+semester_num+":");
+        for(int i=0;i< m;i++){
+            for(int j=0;j< n;j++) {
                 if (board[i][j] == 0)
                     System.out.print("▯");
                 else
@@ -76,9 +77,11 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println("Number of students: "+numOfValidStudents(board,m,n));
+        System.out.println();
     }
     public static void endGame(int[][] board, int m, int n, int i, boolean changed){
-        if(allStudentsInvalid(board,m,n))
+        if(numOfValidStudents(board,m,n)==0)
             System.out.println("There are no more students.");
         else if(!changed)
             System.out.println("The students have stabilized.");
@@ -87,25 +90,26 @@ public class Main {
         }
 
     }
-    public static boolean allStudentsInvalid(int[][] board, int m, int n){
+    public static int numOfValidStudents(int[][] board, int m, int n){
+        int counter = 0;
         for(int i=0;i< board.length;i++){
             for(int j=0;j< board[0].length;j++) {
                 if (board[i][j] == 1)
-                    return false;
+                    counter++;
             }
         }
-        return true;
+        return counter;
     }
     public static void getStudentsIndexes(int[][] board, int m, int n)
     {
-        System.out.println("Dear president, please enter the call's indexes.");
+        System.out.println("Dear president, please enter the cell’s indexes.");
         String student_index = scanner.nextLine();
         while (!student_index.equals("Yokra")) {
             int index_m = Integer.parseInt(student_index.substring(0, student_index.indexOf((","))));
             int index_n = Integer.parseInt(student_index.substring(student_index.indexOf((",")) + 2, student_index.length()));
             if (index_m<m && index_m>=0 && index_n<n && index_n>=0){
                 changeStatus(board, index_m, index_n);
-                System.out.println("Dear president, please enter the call's indexes.");
+                System.out.println("Dear president, please enter the cell’s indexes.");
             }
             else
                 System.out.println("The cell is not within the board’s boundaries, enter a new cell.");
