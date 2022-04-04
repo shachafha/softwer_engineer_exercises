@@ -12,9 +12,14 @@ public class Main {
     private static final int CHANGE_STUDENT_STATUS =1;
     private static final String ACADEMICALLY_INVALID ="▯";
     private static final String ACADEMICALLY_VALID ="▮";
-    public static Scanner scanner;  // Note: Do not change this line.
-    public static void theStudentsGame() {
+    public static Scanner scanner; // Note: Do not change this line.
 
+
+    /**
+     * Runs one game, get board size from president and creates the board.
+     * use other funcs to update the board and to end the game.
+     */
+    public static void theStudentsGame() {
         System.out.println("Dear president, please enter the board’s size.");
         String boardSizes = scanner.nextLine();
         int boardM = Integer.parseInt(boardSizes.substring(0, boardSizes.indexOf(("X")) +DELETE_THE_SPACE));
@@ -33,7 +38,11 @@ public class Main {
         endGame(board, boardM, boardN, i, changed);
 
     }
-
+    /**
+     * Updates students statuses based on those rules:
+     * if a student is valid and has 1 or more than 3 valid friends
+     * if a student is invalid and has 3 valid friends
+     */
     public static boolean updateStatus(int[][] board, int m, int n) {
         int[][] auxBoard = new int[m][n];
         boolean changed = false;
@@ -59,12 +68,12 @@ public class Main {
 
     }
 
-    public static int countValidFriends(int[][] board, int m, int n, int Mindex, int Nindex) {
+    public static int countValidFriends(int[][] board, int m, int n, int mIndex, int nIndex) {
         int counter = 0;
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (isBound(m, n, Mindex + i, Nindex + j) && !(i == 0 && j == 0)) {
-                    if (board[Mindex + i][Nindex + j] == 1)
+                if (isBound(m, n, mIndex + i, nIndex + j) && !(i == 0 && j == 0)) {
+                    if (board[mIndex + i][nIndex + j] == 1)
                         counter++;
                 }
             }
@@ -73,8 +82,8 @@ public class Main {
         return counter;
     }
 
-    public static boolean isBound(int m, int n, int Mindex, int Nindex) {
-        return Mindex >= 0 && Nindex >= 0 && Mindex < m && Nindex < n;
+    public static boolean isBound(int m, int n, int mIndex, int nIndex) {
+        return mIndex >= 0 && nIndex >= 0 && mIndex < m && nIndex < n;
     }
 
     public static void printBoard(int[][] board, int m, int n, int semesterNum) {
