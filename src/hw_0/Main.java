@@ -8,13 +8,16 @@ public class Main {
     private static final int MAX_SEMESTER =1000;
     private static final int PERFECT_NUM_OF_FRIENDS =3;
     private static final int SKIP_THE_SPACE =2;
+    private static final int DELETE_THE_SPACE =-1;
     private static final int CHANGE_STUDENT_STATUS =1;
+    private static final String ACADEMICALLY_UNVALID ="▯";
+    private static final String ACADEMICALLY_VALID ="▮";
     public static Scanner scanner;  // Note: Do not change this line.
     public static void theStudentsGame() {
 
         System.out.println("Dear president, please enter the board’s size.");
         String board_sizes = scanner.nextLine();
-        int board_m = Integer.parseInt(board_sizes.substring(0, board_sizes.indexOf(("X")) - 1));
+        int board_m = Integer.parseInt(board_sizes.substring(0, board_sizes.indexOf(("X")) +DELETE_THE_SPACE));
         int board_n = Integer.parseInt(board_sizes.substring(board_sizes.indexOf(("X")) + SKIP_THE_SPACE));
         int[][] board = new int[board_m][board_n];
         getStudentsIndexes(board, board_m, board_n);
@@ -79,9 +82,9 @@ public class Main {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == 0)
-                    System.out.print("▯");
+                    System.out.print(ACADEMICALLY_UNVALID);
                 else
-                    System.out.print("▮");
+                    System.out.print(ACADEMICALLY_VALID);
             }
             System.out.println();
         }
