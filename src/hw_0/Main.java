@@ -10,7 +10,7 @@ public class Main {
     private static final int SKIP_THE_SPACE =2;
     private static final int DELETE_THE_SPACE =-1;
     private static final int CHANGE_STUDENT_STATUS =1;
-    private static final String ACADEMICALLY_UNVALID ="▯";
+    private static final String ACADEMICALLY_INVALID ="▯";
     private static final String ACADEMICALLY_VALID ="▮";
     public static Scanner scanner;  // Note: Do not change this line.
     public static void theStudentsGame() {
@@ -82,7 +82,7 @@ public class Main {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == 0)
-                    System.out.print(ACADEMICALLY_UNVALID);
+                    System.out.print(ACADEMICALLY_INVALID);
                 else
                     System.out.print(ACADEMICALLY_VALID);
             }
