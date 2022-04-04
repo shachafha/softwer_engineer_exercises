@@ -5,20 +5,24 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+    private static final int MAX_SEMESTER =1000;
+    private static final int PERFECT_NUM_OF_FRIENDS =3;
+    private static final int SKIP_THE_SPACE =2;
+    private static final int CHANGE_STUDENT_STATUS =1;
     public static Scanner scanner;  // Note: Do not change this line.
-
     public static void theStudentsGame() {
+
         System.out.println("Dear president, please enter the board’s size.");
         String board_sizes = scanner.nextLine();
         int board_m = Integer.parseInt(board_sizes.substring(0, board_sizes.indexOf(("X")) - 1));
-        int board_n = Integer.parseInt(board_sizes.substring(board_sizes.indexOf(("X")) + 2));
+        int board_n = Integer.parseInt(board_sizes.substring(board_sizes.indexOf(("X")) + SKIP_THE_SPACE));
         int[][] board = new int[board_m][board_n];
         getStudentsIndexes(board, board_m, board_n);
         printBoard(board, board_m, board_n, 1);
         int i = 2;
         boolean changed = updateStatus(board, board_m, board_n);
 
-        while (i <= 1000 && changed) {
+        while (i <= MAX_SEMESTER && changed) {
             printBoard(board, board_m, board_n, i);
             i++;
             changed = updateStatus(board, board_m, board_n);
@@ -34,15 +38,15 @@ public class Main {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 valid_friends = countValidFriends(board, m, n, i, j);
-                if ((board[i][j] == 1) && (valid_friends <= 1 || valid_friends > 3))
-                    aux_board[i][j] = 1;
-                if (board[i][j] == 0 && valid_friends == 3)
-                    aux_board[i][j] = 1;
+                if ((board[i][j] == 1) && (valid_friends <= 1 || valid_friends > PERFECT_NUM_OF_FRIENDS))
+                    aux_board[i][j] = CHANGE_STUDENT_STATUS;
+                if (board[i][j] == 0 && valid_friends == PERFECT_NUM_OF_FRIENDS)
+                    aux_board[i][j] = CHANGE_STUDENT_STATUS;
             }
         }
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (aux_board[i][j] == 1) {
+                if (aux_board[i][j] == CHANGE_STUDENT_STATUS) {
                     changeStatus(board, i, j);
                     changed = true;
                 }
@@ -90,7 +94,7 @@ public class Main {
             System.out.println("There are no more students.");
         else if (!changed)
             System.out.println("The students have stabilized.");
-        else if (i == 1001) {
+        else if (i == MAX_SEMESTER+1) {
             System.out.println("The semesters limitation is over.");
         }
 
@@ -112,7 +116,7 @@ public class Main {
         String student_index = scanner.nextLine();
         while (!student_index.equals("Yokra")) {
             int index_m = Integer.parseInt(student_index.substring(0, student_index.indexOf((","))));
-            int index_n = Integer.parseInt(student_index.substring(student_index.indexOf((",")) + 2));
+            int index_n = Integer.parseInt(student_index.substring(student_index.indexOf((",")) + SKIP_THE_SPACE));
             if (index_m < m && index_m >= 0 && index_n < n && index_n >= 0) {
                 changeStatus(board, index_m, index_n);
                 System.out.println("Dear president, please enter the cell’s indexes.");
