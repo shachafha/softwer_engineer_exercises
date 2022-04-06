@@ -39,9 +39,11 @@ public class Main {
 
     }
     /**
+     * this func gets then board and its sizes and
      * Updates students statuses based on those rules:
      * if a student is valid and has 1 or more than 3 valid friends
      * if a student is invalid and has 3 valid friends
+     * it returns true if the board changed and false otherwise
      */
     public static boolean updateStatus(int[][] board, int m, int n) {
         int[][] auxBoard = new int[m][n];
@@ -67,7 +69,10 @@ public class Main {
         return changed;
 
     }
-
+    /**
+     * gets the board, it's size and the current student's place.
+     * returns the number of academic valid friends.
+     */
     public static int countValidFriends(int[][] board, int m, int n, int mIndex, int nIndex) {
         int counter = 0;
         for (int i = -1; i <= 1; i++) {
@@ -81,11 +86,17 @@ public class Main {
 
         return counter;
     }
-
+    /**
+     * gets the board sizes and a specific location
+     * returns true if the location is inside the board anf false otherwise.
+     */
     public static boolean isBound(int m, int n, int mIndex, int nIndex) {
         return mIndex >= 0 && nIndex >= 0 && mIndex < m && nIndex < n;
     }
-
+    /**
+     * gets the board , its size and the semester number
+     * prints messages and the board
+     */
     public static void printBoard(int[][] board, int m, int n, int semesterNum) {
         System.out.println("Semester number " + semesterNum + ":");
         for (int i = 0; i < m; i++) {
@@ -101,17 +112,25 @@ public class Main {
         System.out.println();
     }
 
-    public static void endGame(int[][] board, int m, int n, int i, boolean changed) {
+    /**
+     * gets the board , its size, last semester number and if the board changed in the last turn
+     * prints the end message
+     */
+    public static void endGame(int[][] board, int m, int n, int lastSemesterNum, boolean changed) {
         if (numOfValidStudents(board, m, n) == 0)
             System.out.println("There are no more students.");
         else if (!changed)
             System.out.println("The students have stabilized.");
-        else if (i == MAX_SEMESTER+1) {
+        else if (lastSemesterNum == MAX_SEMESTER+1) {
             System.out.println("The semesters limitation is over.");
         }
 
     }
 
+    /**
+     * gets the board and its size
+     * returns the number of academic valid students
+     */
     public static int numOfValidStudents(int[][] board, int m, int n) {
         int counter = 0;
         for (int i = 0; i < m; i++) {
@@ -123,13 +142,17 @@ public class Main {
         return counter;
     }
 
+    /**
+     * gets the board and its size
+     * scans the students, places and changes their status
+     */
     public static void getStudentsIndexes(int[][] board, int m, int n) {
         System.out.println("Dear president, please enter the cell’s indexes.");
         String studentIndex = scanner.nextLine();
         while (!studentIndex.equals("Yokra")) {
             int indexM = Integer.parseInt(studentIndex.substring(0, studentIndex.indexOf((","))));
             int indexN = Integer.parseInt(studentIndex.substring(studentIndex.indexOf((",")) + SKIP_THE_SPACE));
-            if (indexM < m && indexM >= 0 && indexN < n && indexN >= 0) {
+            if (isBound(m,n,indexM,indexN)) {
                 changeStatus(board, indexM, indexN);
                 System.out.println("Dear president, please enter the cell’s indexes.");
             } else
@@ -139,7 +162,9 @@ public class Main {
 
 
     }
-
+    /**
+     * gets the board and a place in the board and change its value
+     */
     public static void changeStatus(int[][] board, int m, int n) {
         if (board[m][n] == 0) board[m][n] = 1;
         else board[m][n] = 0;
