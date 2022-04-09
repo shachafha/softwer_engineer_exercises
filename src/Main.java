@@ -68,7 +68,7 @@ public class Main {
 
     }
     /**
-     * gets the board, it's size and the current student's place.
+     * this func gets the board, it's size and the current student's place.
      * returns the number of academic valid friends.
      */
     public static int countValidFriends(int[][] board, int m, int n, int mIndex, int nIndex) {
