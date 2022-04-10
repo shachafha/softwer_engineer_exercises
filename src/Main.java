@@ -37,11 +37,13 @@ public class Main {
 
     }
     /**
-     * this func gets then board and its sizes and
+     * @param  board the semester board
+     * @param  m the num of rows in the board
+     * @param  n the num of columns in the board
      * Updates students statuses based on those rules:
      * if a student is valid and has 1 or more than 3 valid friends
      * if a student is invalid and has 3 valid friends
-     * it returns true if the board changed and false otherwise
+     * @return true if the board changed and false otherwise
      */
     public static boolean updateStatus(int[][] board, int m, int n) {
         int[][] auxBoard = new int[m][n];
@@ -68,8 +70,12 @@ public class Main {
 
     }
     /**
-     * this func gets the board, it's size and the current student's place.
-     * returns the number of academic valid friends.
+     * @param board the semester board
+     * @param  m the num of rows in the board
+     * @param  n the num of columns in the board
+     * @param  mIndex current student's row.
+     * @param  nIndex current student's column.
+     * @return the number of academic valid friends.
      */
     public static int countValidFriends(int[][] board, int m, int n, int mIndex, int nIndex) {
         int counter = 0;
@@ -85,14 +91,20 @@ public class Main {
         return counter;
     }
     /**
-     * gets the board sizes and a specific location
-     * returns true if the location is inside the board anf false otherwise.
+     * @param  m the num of rows in the board
+     * @param  n the num of columns in the board
+     * @param  mIndex current student's row.
+     * @param  nIndex current student's column.
+     * @return true if the location is inside the board anf false otherwise.
      */
     public static boolean isBound(int m, int n, int mIndex, int nIndex) {
         return mIndex >= 0 && nIndex >= 0 && mIndex < m && nIndex < n;
     }
     /**
-     * gets the board , its size and the semester number
+     * @param board the semester board
+     * @param  m the num of rows in the board
+     * @param  n the num of columns in the board
+     * @param  semesterNum the semester number
      * prints messages and the board
      */
     public static void printBoard(int[][] board, int m, int n, int semesterNum) {
@@ -111,7 +123,11 @@ public class Main {
     }
 
     /**
-     * gets the board , its size, last semester number and if the board changed in the last turn
+     * @param board the semester board
+     * @param  m the num of rows in the board
+     * @param  n the num of columns in the board
+     * @param  lastSemesterNum last semester number
+     * @param  changed true if the board is changed
      * prints the end message
      */
     public static void endGame(int[][] board, int m, int n, int lastSemesterNum, boolean changed) {
@@ -126,8 +142,10 @@ public class Main {
     }
 
     /**
-     * gets the board and its size
-     * returns the number of academic valid students
+     * @param board the semester board
+     * @param  m the num of rows in the board
+     * @param  n the num of columns in the board
+     * @return the number of academic valid students
      */
     public static int numOfValidStudents(int[][] board, int m, int n) {
         int counter = 0;
@@ -141,7 +159,9 @@ public class Main {
     }
 
     /**
-     * gets the board and its size
+     * @param board the semester board
+     * @param  m the num of rows in the board
+     * @param  n the num of columns in the board
      * scans the students, places and changes their status
      */
     public static void getStudentsIndexes(int[][] board, int m, int n) {
@@ -161,7 +181,10 @@ public class Main {
 
     }
     /**
-     * gets the board and a place in the board and change its value
+     * @param board the semester board
+     * @param  m current student's row.
+     * @param  n current student's column.
+     * change the student status
      */
     public static void changeStatus(int[][] board, int m, int n) {
         if (board[m][n] == 0) board[m][n] = 1;
